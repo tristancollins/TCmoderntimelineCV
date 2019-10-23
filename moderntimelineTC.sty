@@ -1,0 +1,428 @@
+%%
+%% This is file `moderntimeline.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% moderntimeline.dtx  (with options: `package')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2011 by Raphaël Pinson <raphink@gmail.com>
+%% --------------------------------------------------------------------------
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{moderntimelineTC}
+    [2012/04/27 0.7 Add timelines to moderncv entries, modified to Tristan's CV]
+\ProvidesPackage{moderntimelineTC}
+\RequirePackage{tikz}
+\RequirePackage{kvoptions}
+\SetupKeyvalOptions{
+   family=moderntimeline,
+   prefix=tl@,
+}
+\DeclareStringOption{firstyear}
+\DeclareStringOption{lastyear}
+\ProcessKeyvalOptions*
+\newcommand{\tlwidth}[1]{%
+   \def\tl@width{#1}
+   \pgfmathsetmacro\tl@textstartabove{\tl@width+1pt}
+}
+\newcommand{\tlrunningwidth}[1]{%
+   \def\tl@runningwidth{#1}
+}
+\newcommand{\tlrunningcolor}[1]{%
+   \def\tl@runningcolor{#1}
+}
+\newcommand{\tlsince}[1]{%
+   \def\tl@since{#1}
+}
+\newcommand{\tltextstart}[2][base west]{%
+   \tikzset{
+       tl@startyear/.style={
+           font=#2,
+           name=tl@startyear,
+           above=\tl@textstartabove,
+           inner xsep=0pt,
+           anchor=#1,
+           text=black,
+       }
+   }
+}
+\newcommand{\tltextstartTC}[2][base east]{%
+   \tikzset{
+       tl@startyearTC/.style={
+           font=#2,
+           name=tl@startyearTC,
+           above=\tl@textstartabove,
+           inner xsep=0pt,
+           anchor=#1,
+           text=black,
+       }
+   }
+}
+\newcommand{\tltextstartlabelTC}[2][base east]{%
+   \tikzset{
+       tl@startyearlabelTC/.style={
+           font=#2,
+           name=tl@startyearlabelTC,
+           above=\tl@textstartabove,
+           inner xsep=0pt,
+           anchor=#1,
+           text=black,
+       }
+   }
+}
+\newcommand{\tltextendlabelTC}[2][base west]{%
+   \tikzset{
+       tl@endyearlabelTC/.style={
+           font=#2,
+           name=tl@startyearlabelTC,
+           above=\tl@textstartabove,
+           inner xsep=0pt,
+           anchor=#1,
+           text=black,
+       }
+   }
+}
+\newcommand{\tltextend}[2][north east]{%
+   \tikzset{
+       tl@endyear/.style={
+           font=#2,
+           name=tl@endyear,
+           below,
+           inner xsep=0pt,
+           anchor=#1,
+           text=black,
+       }
+   }
+}
+\newcommand{\tltextsingle}[1]{%
+   \tikzset{
+       tl@singleyear/.style={
+           font=#1,
+           name=tl@singleyear,
+           above=1pt,
+           inner xsep=0pt,
+           text=black,
+       }
+   }
+
+}
+\newcommand{\tltext}[1]{%
+   \tltextstart{#1}%
+   \tltextend{#1}%
+   \tltextsingle{#1}%
+   \tltextstartTC{#1}%
+   \tltextstartlabelTC{#1}%
+   \tltextendlabelTC{#1}%
+}
+\tltext{\scriptsize}
+\tlwidth{0.8ex}
+\tlrunningwidth{0.05ex}
+\tlrunningcolor{gray}
+\tlsince{}
+\newcommand{\tlmaxdates}[2]{%
+   \def\tl@firstyear{#1}
+   \def\tl@lastyear{#2}
+   \pgfmathsetmacro\tl@yearrange{\tl@lastyear-\tl@firstyear}
+}
+\newcommand{\tldatelabelcventry}[8][colorTC1]{%
+\pgfmathsetmacro\tl@endyear{\tl@lastyear}
+\pgfmathsetmacro\tl@startfraction{(#2-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+\pgfmathsetmacro\tl@endfraction{(\tl@endyear-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+ \cventry{\tikz{
+     \fill [\tl@runningcolor] (0,0)
+        rectangle (\hintscolumnwidth,\tl@runningwidth);
+     \fill [#1] (0,0)
+        ++(\tl@startfraction*\hintscolumnwidth,0pt)
+        node [tl@startyear] {\hfill #3}
+        node {$\bullet$};
+   }
+}
+{#4}{#5}{#6}{#7}{#8}
+}
+\newcommand{\tldatecventry}[7][colorTC1]{%
+\pgfmathsetmacro\tl@endyear{\tl@lastyear}%
+\pgfmathsetmacro\tl@startfraction{(#2-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+\pgfmathsetmacro\tl@endfraction{(\tl@endyear-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+\cventry{\tikz[baseline=0pt]{
+    \useasboundingbox (0,-1.5ex) rectangle (\hintscolumnwidth,1ex);
+    \fill [\tl@runningcolor] (0,0)
+       rectangle (\hintscolumnwidth,\tl@runningwidth);
+    \fill [#1] (0,0)
+       ++(\tl@startfraction*\hintscolumnwidth,0pt)
+       node [tl@singleyear] {#2}
+       node {$\bullet$};
+  }%
+}%
+{#3}{#4}{#5}{#6}{#7}%
+}
+\newcommand{\tlcventry}[8][colorTC1]{%
+\pgfmathsetmacro\tl@endyear{ifthenelse(#3==0,\tl@lastyear,#3)}%
+\pgfmathsetmacro\tl@startfraction{(#2-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+\pgfmathsetmacro\tl@endfraction{(\tl@endyear-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+\pgfmathsetlength{\pgf@xa}{#3} \ifdim\pgf@xa=0pt \def\tl@startlabel{\tl@since #2} \else \def\tl@startlabel{#2} \fi
+ \cventry{\tikz[baseline=0pt]{
+    \useasboundingbox (0,-1.5ex) rectangle (\hintscolumnwidth,1ex);
+    \fill [\tl@runningcolor] (0,0)
+       rectangle (\hintscolumnwidth,\tl@runningwidth);
+    \fill [#1] (0,0)
+       ++(\tl@startfraction*\hintscolumnwidth,0pt)
+       node [tl@startyear] {\tl@startlabel}
+       rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width-1pt)
+       node [tl@endyear] {\pgfmathparse{ifthenelse(#3==0,,#3)}\pgfmathresult}
+       (\hintscolumnwidth,0pt) ;
+    \pgfmathsetlength{\pgf@xa}{#3} \ifdim\pgf@xa=0pt
+       \shade [left color=#1] (\tl@startfraction*\hintscolumnwidth,0)
+           rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width);
+    \else
+       \fill [#1] (\tl@startfraction*\hintscolumnwidth,0)
+           rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width);
+    \fi
+    }%
+}%
+{#4}{#5}{#6}{#7}{#8}%
+}
+\newcommand{\tllabelcventry}[9][colorTC1]{%
+\pgfmathsetmacro\tl@endyear{ifthenelse(#3==0,\tl@lastyear,#3)}
+\pgfmathsetmacro\tl@startfraction{(#2-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+\pgfmathsetmacro\tl@endfraction{(\tl@endyear-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+ \cventry{\tikz[baseline=0pt]{
+     \fill [\tl@runningcolor] (0,0)
+        rectangle (\hintscolumnwidth,\tl@runningwidth);
+     \useasboundingbox (0,-1.5ex)
+        rectangle (\hintscolumnwidth,1ex);
+     \fill [#1] (0,0)
+        ++(\tl@startfraction*\hintscolumnwidth,0pt)
+        node [tl@startyear] {#4}
+        rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width-1pt);
+     \pgfmathsetlength{\pgf@xa}{#3} \ifdim\pgf@xa=0pt
+        \shade [left color=#1] (\tl@startfraction*\hintscolumnwidth,0)
+            rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width);
+     \else
+        \fill [#1] (\tl@startfraction*\hintscolumnwidth,0)
+            rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width);
+     \fi
+     }
+}
+{#5}{#6}{#7}{#8}{#9}%
+}
+%
+\newcommand{\tldoublelabelcventry}[9][colorTC1]{%
+\pgfmathsetmacro\tl@endyear{ifthenelse(#3==0,\tl@lastyear,#3)}
+\pgfmathsetmacro\tl@startfraction{(#2-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+\pgfmathsetmacro\tl@endfraction{(\tl@endyear-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+\pgfmathsetlength{\pgf@xa}{#3} \ifdim\pgf@xa=0pt \def\tl@startlabel{\tl@since #2} \else \def\tl@startlabel{#2} \fi
+ \cventry{\tikz[baseline=0pt]{
+     \fill [\tl@runningcolor] (0,0)
+        rectangle (\hintscolumnwidth,\tl@runningwidth);
+     \useasboundingbox (0,-1.5ex)
+        rectangle (\hintscolumnwidth,1ex);
+     \fill [#1] (0,0)
+        ++(\tl@startfraction*\hintscolumnwidth,0pt)
+        node [tl@startyear] {#4}
+        rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width-1pt);
+     \pgfmathsetlength{\pgf@xa}{#3} \ifdim\pgf@xa=0pt
+        \shade [left color=#1] (\tl@startfraction*\hintscolumnwidth,0)
+            rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width);
+     \else
+        \fill [#1] (\tl@startfraction*\hintscolumnwidth,0)
+            rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width);
+     \fill [#1] (0,0)
+        ++(\tl@endfraction*\hintscolumnwidth,0pt)
+        node [tl@endyear] {#5};
+     \fi
+     }
+}
+{#6}{#7}{#8}{#9}%
+}
+\newcommand{\tldoublelabelcventryTC}[9][colorTC1]{%
+\pgfmathsetmacro\tl@TCcalcyears{(\tl@lastyear)-(\tl@firstyear)}%
+\pgfmathsetmacro\tl@TCcalcdist{(\hintscolumnwidth)/(\tl@TCcalcyears)}%
+\pgfmathsetmacro\tl@endyear{ifthenelse(#3==0,\tl@lastyear,#3)}
+\pgfmathsetmacro\tl@startfraction{(#2-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+\pgfmathsetmacro\tl@endfraction{(\tl@endyear-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+\pgfmathsetlength{\pgf@xa}{#3} \ifdim\pgf@xa=0pt \def\tl@startlabel{\tl@since #2} \else \def\tl@startlabel{#2} \fi
+ \cventry{\tikz[baseline=0pt]{
+     \fill [\tl@runningcolor] (0,0)
+        rectangle (\hintscolumnwidth,\tl@runningwidth);
+       \foreach \x in {0,...,\tl@TCcalcyears} %for the ticks
+       \draw [\tl@runningcolor](\x*\tl@TCcalcdist pt,0ex) -- (\x*\tl@TCcalcdist pt,0.4ex);
+     \useasboundingbox (0,-1.5ex)
+        rectangle (\hintscolumnwidth,1ex);
+     \fill [#1] (0,0)
+        ++(\tl@startfraction*\hintscolumnwidth,0pt)
+%        node [tl@startyear] {#4}
+        node [tl@endyear] {#4}
+        rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width-1pt);
+    \draw [#1, line width=1pt] (0,0) %for the little line to year
+       ++(\tl@startfraction*\hintscolumnwidth+0.5pt,0pt) -- (\tl@startfraction*\hintscolumnwidth+0.5pt,-2pt);
+     \pgfmathsetlength{\pgf@xa}{#3} \ifdim\pgf@xa=0pt
+        \shade [left color=#1] (\tl@startfraction*\hintscolumnwidth,0)
+            rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width);
+     \else
+        \fill [#1] (\tl@startfraction*\hintscolumnwidth,0)
+            rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width);
+    \draw [#1, line width=1pt] (0,0) %for the little line to year
+       ++(\tl@endfraction*\hintscolumnwidth-0.5pt,0.8ex-1pt) -- (\tl@endfraction*\hintscolumnwidth-0.5pt,0.8ex+2pt);
+     \fill [#1] (0,0)
+        ++(\tl@endfraction*\hintscolumnwidth,3pt)
+%        node [tl@endyear] {#5};
+        node [tl@endyearlabelTC] {#5};
+     \fi
+     }
+}
+{#6}{#7}{#8}{#9}%
+}
+\newcommand{\tldoublelabelcventryright}[9][colorTC1]{%
+\pgfmathsetmacro\tl@TCcalcyears{(\tl@lastyear)-(\tl@firstyear)}%
+\pgfmathsetmacro\tl@TCcalcdist{(\hintscolumnwidth)/(\tl@TCcalcyears)}%
+\pgfmathsetmacro\tl@endyear{ifthenelse(#3==0,\tl@lastyear,#3)}
+\pgfmathsetmacro\tl@startfraction{(#2-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+\pgfmathsetmacro\tl@endfraction{(\tl@endyear-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+\pgfmathsetlength{\pgf@xa}{#3} \ifdim\pgf@xa=0pt \def\tl@startlabel{\tl@since #2} \else \def\tl@startlabel{#2} \fi
+ \cventry{\tikz[baseline=0pt]{
+     \fill [\tl@runningcolor] (0,0)
+        rectangle (\hintscolumnwidth,\tl@runningwidth);
+       \foreach \x in {0,...,\tl@TCcalcyears} %for the ticks
+       \draw [\tl@runningcolor](\x*\tl@TCcalcdist pt,0ex) -- (\x*\tl@TCcalcdist pt,0.4ex);
+     \useasboundingbox (0,-1.5ex)
+        rectangle (\hintscolumnwidth,1ex);
+     \fill [#1] (0,0)
+        ++(\tl@startfraction*\hintscolumnwidth,0pt)
+%        node [tl@startyearlabelTC] {#4}
+        node [tl@endyear] {#4}
+        rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width-1pt);
+    \draw [#1, line width=1pt] (0,0) %for the little line to year
+       ++(\tl@startfraction*\hintscolumnwidth+0.5pt,0pt) -- (\tl@startfraction*\hintscolumnwidth+0.5pt,-2pt);
+     \pgfmathsetlength{\pgf@xa}{#3} \ifdim\pgf@xa=0pt
+        \shade [left color=#1, right color=#1!15] (\tl@startfraction*\hintscolumnwidth,0) % TC added 'right color=#1!15' to make the right-most color a little bit red, the higher the number the closer to the red.
+            rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width);
+     \else
+        \fill [#1] (\tl@startfraction*\hintscolumnwidth,0)
+            rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width);
+    \draw [#1, line width=1pt] (0,0) %for the little line to year
+       ++(\tl@endfraction*\hintscolumnwidth-0.5pt,0.8ex-1pt) -- (\tl@endfraction*\hintscolumnwidth-0.5pt,0.8ex+2pt);
+     \fill [#1] (0,0)
+        ++(\hintscolumnwidth,3pt)
+%        node [tl@endyear] {#5};
+        node [tl@startyearlabelTC] {#5};
+     \fi
+     }
+}
+{#6}{#7}{#8}{#9}%
+}
+\newcommand{\tllabelcventryright}[9][colorTC1]{%
+\pgfmathsetmacro\tl@endyear{ifthenelse(#3==0,\tl@lastyear,#3)}
+\pgfmathsetmacro\tl@startfraction{(#2-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+\pgfmathsetmacro\tl@endfraction{(\tl@endyear-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+ \cventry{\tikz[baseline=0pt]{
+     \fill [\tl@runningcolor] (0,0)
+        rectangle (\hintscolumnwidth,\tl@runningwidth);
+     \useasboundingbox (0,-1.5ex)
+        rectangle (\hintscolumnwidth,1ex);
+     \fill [#1] (0,0)
+        ++((\tl@startfraction*\hintscolumnwidth,0pt)
+ %       node [tl@startyearTC] {#4}
+        rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width-1pt);
+     \fill [#1] (0,0)
+        ++((\hintscolumnwidth,0pt)
+        node [tl@startyearTC] {#4};
+     \pgfmathsetlength{\pgf@xa}{#3} \ifdim\pgf@xa=0pt
+        \shade [left color=#1] (\tl@startfraction*\hintscolumnwidth,0)
+            rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width);
+     \else
+        \fill [#1] (\tl@startfraction*\hintscolumnwidth,0)
+            rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width);
+     \fi
+     }
+}
+{#5}{#6}{#7}{#8}{#9}%
+}
+\newcommand{\tlcventryTC}[8][colorTC1]{%
+\pgfmathsetmacro\tl@TCcalcyears{(\tl@lastyear)-(\tl@firstyear)}%
+\pgfmathsetmacro\tl@TCcalcdist{(\hintscolumnwidth)/(\tl@TCcalcyears)}%
+\pgfmathsetmacro\tl@endyear{ifthenelse(#3==0,\tl@lastyear,#3)}%
+\pgfmathsetmacro\tl@startfraction{(#2-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+\pgfmathsetmacro\tl@endfraction{(\tl@endyear-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+\pgfmathsetlength{\pgf@xa}{#3} \ifdim\pgf@xa=0pt \def\tl@startlabel{\tl@since #2} \else \def\tl@startlabel{#2} \fi
+ \cventry{\tikz[baseline=0pt]{
+    \useasboundingbox (0,-1.5ex) rectangle (\hintscolumnwidth,1ex);
+    \fill [\tl@runningcolor] (0,0)
+       rectangle (\hintscolumnwidth,\tl@runningwidth);
+       \foreach \x in {0,...,\tl@TCcalcyears} %for the ticks
+       \draw [\tl@runningcolor](\x*\tl@TCcalcdist pt,0ex) -- (\x*\tl@TCcalcdist pt,0.4ex);
+    \fill [#1] (0,0)
+       ++(\tl@startfraction*\hintscolumnwidth,0pt)
+       node [tl@endyear] {\tl@startlabel}
+       rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width-1pt)
+       node [tl@startyear] {\pgfmathparse{ifthenelse(#3==0,,#3)}\pgfmathresult}
+       (\hintscolumnwidth,0pt) ;
+    \draw [#1, line width=1pt] (0,0) %for the little line to year
+       ++(\tl@startfraction*\hintscolumnwidth+0.5pt,0pt) -- (\tl@startfraction*\hintscolumnwidth+0.5pt,-2pt);
+    \draw [#1, line width=1pt] (0,0) %for the little line to year
+       ++(\tl@endfraction*\hintscolumnwidth-0.5pt,0.8ex-1pt) -- (\tl@endfraction*\hintscolumnwidth-0.5pt,0.8ex+2pt);
+    \pgfmathsetlength{\pgf@xa}{#3} \ifdim\pgf@xa=0pt
+       \shade [left color=#1] (\tl@startfraction*\hintscolumnwidth,0)
+           rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width);
+    \else
+       \fill [#1] (\tl@startfraction*\hintscolumnwidth,0)
+           rectangle (\tl@endfraction*\hintscolumnwidth,\tl@width);
+    \fi
+    }%
+}%
+{#4}{#5}{#6}{#7}{#8}%
+}
+\newcommand{\tldatecventryTC}[7][colorTC1]{%
+\pgfmathsetmacro\tl@endyear{\tl@lastyear}%
+\pgfmathsetmacro\tl@startfraction{(#2-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+\pgfmathsetmacro\tl@endfraction{(\tl@endyear-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+\cventry{\tikz[baseline=0pt]{
+    \useasboundingbox (0,-1.5ex) rectangle (\hintscolumnwidth,1ex);
+    \fill [\tl@runningcolor] (0,0)
+       rectangle (\hintscolumnwidth,\tl@runningwidth);
+       \foreach \x in {0,...,\tl@TCcalcyears} %for the ticks
+       \draw [\tl@runningcolor](\x*\tl@TCcalcdist pt,0ex) -- (\x*\tl@TCcalcdist pt,0.4ex);
+    \fill [#1] (0,0)
+       ++(\tl@startfraction*\hintscolumnwidth,0pt)
+       node [tl@singleyear] {#2}
+       node {$\bullet$};
+  }%
+}%
+{#3}{#4}{#5}{#6}{#7}%
+}
+\newcommand{\tldatelabelcventryTC}[8][colorTC1]{%
+\pgfmathsetmacro\tl@endyear{\tl@lastyear}
+\pgfmathsetmacro\tl@startfraction{(#2-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+\pgfmathsetmacro\tl@endfraction{(\tl@endyear-\tl@firstyear)/(\tl@lastyear-\tl@firstyear)}%
+ \cventry{\tikz[baseline=0pt]{
+     \fill [\tl@runningcolor] (0,0)
+        rectangle (\hintscolumnwidth,\tl@runningwidth);
+       \foreach \x in {0,...,\tl@TCcalcyears} %for the ticks
+       \draw [\tl@runningcolor](\x*\tl@TCcalcdist pt,0ex) -- (\x*\tl@TCcalcdist pt,0.4ex);
+     \fill [#1] (0,0.1) % TC altered to adjust bullet and text up a bit
+        ++(\tl@startfraction*\hintscolumnwidth,0pt)
+        node [tl@singleyear] {#3}
+%        node {\huge \bullet}; % TC altered due to issue with unicode-math package
+%        node[fill,circle,inner sep=0pt,minimum size=0.9ex] {}; % TC added to allow different sizes of bullets
+        node[fill,
+        shape border rotate=180,
+        regular polygon,
+        regular polygon sides=3,
+        inner sep=0pt,
+        minimum height=1.1ex] {}; % TC added get triangles
+   }
+}
+{#4}{#5}{#6}{#7}{#8}
+}
+\endinput
+%%
+%% End of file `moderntimeline.sty'.

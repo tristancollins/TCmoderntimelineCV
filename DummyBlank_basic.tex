@@ -1,0 +1,110 @@
+\documentclass[11pt,a4paper,sans]{moderncv}  
+% moderncv themes
+\moderncvstyle{classic} 
+\moderncvcolor{blue} 
+
+% personal data
+\name{Tristan}{Collins}
+%\title{Resume title}  
+%\address{Address}%
+\phone[fixed]{+number}                   % optional, remove / comment the line if not wanted; the optional "type" of the phone can be "mobile" (default), "fixed" or "fax"
+\email{email} 
+\homepage{web} 
+\social[linkedin]{linkedin}
+%\social[github]{jdoe}  
+%\extrainfo{additional information} 
+%\quote{Some quote}
+
+\usepackage{moderntimelineTC}
+\tlmaxdates{2000}{2014}
+% Set the line width.
+% This automatically sets the space under the top label to be 1pt more
+\tlwidth{0.8ex}
+% Set the labels text size
+%\tltext{\scriptsize}
+\tltext{\fontsize{7.5}{9}\selectfont}
+
+% command and color used in this document, independently from moderncv 
+\definecolor{customheader}{rgb}{0.2,0.4,0.65}
+\definecolor{see}{rgb}{0.5,0.5,0.5}% for web links
+\definecolor{color1}{RGB}{210,13,20}% burgundy
+\definecolor{colorTC1}{RGB}{210,13,20}% burgundy
+\newcommand{\up}[1]{\ensuremath{^\textsf{\scriptsize#1}}}% for text subscripts
+
+% Additional Tikz things (called from ModernTimeline)
+\usetikzlibrary{shapes.geometric,backgrounds}
+
+%
+%-----------------------------------------------------------
+%            content
+%-----------------------------------------------------------
+\begin{document}
+%-----       resume       ----------------------------------
+\makecvtitle
+
+\vspace{-1.5em} % move things up a bit
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\section{Experience to Date}
+%
+% LINTEL
+%
+\tldoublelabelcventryright{2012.750}{0}{Sept 2012}{present}{Company}{Location}{}{}{Doing:
+\begin{itemize}
+\item This... \textit{8 months}
+\begin{itemize}
+\item And that
+\item Delivered
+\item Day-to-day
+\item Additional
+\end{itemize}
+\end{itemize}}
+\vspace{1em}
+%
+% CVA
+%
+\tldoublelabelcventryright{2010.75}{2012.75}{Sept 2010}{Sept~2012}{Company 2}{Location}{}{}{Lorem}
+\vspace{1em}
+%
+% STREETCAR
+%
+\tldoublelabelcventryright{2008.75}{2010.75}{June 2009}{Sept~2010}{Company 3}{London}{}{}{Lorem}
+\vspace{1em}
+%
+% TRANSENTIA
+%
+\tldoublelabelcventryright{2006.75}{2008.75}{Sept 2008}{June~2009}{Company 4}{Location}{}{}{Lorem}
+\vspace{1em}
+%
+% PHD
+%
+\tldoublelabelcventryright{2004.8}{2008.6}{Oct 2004}{August~2008}{Company 5}{Location}{}{}{Lorem}
+\vspace{0.5em}
+%
+\subsection{Internships}
+%
+%\tltextstart[base centre]{\tiny}
+\tldatelabelcventryTC{2003.5}{2003}{Internship 1}{Location}{}{}{}
+%
+\tldatelabelcventryTC{2002.8}{2002}{Internship 2}{Location}{}{}{}
+%
+\tldatelabelcventryTC{2002.6}{2002}{Internship 3}{Location}{}{}{}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\section{Education}
+%
+%\tltextstart[base west]{\fontsize{7.5}{9}\selectfont}
+%\tltextend[north east]{\fontsize{7.5}{9}\selectfont} 
+\tldoublelabelcventryTC{2004.75}{2008.5}{2004}{2008}{Degree 1}{University}{}{}{.}
+%
+\tldoublelabelcventryTC{2000.75}{2004.5}{2000}{2004}{Degree 2}{University}{}{awarded with Distinction (1st class)}{.}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+
+\end{document}
+
+%% end of file `template.tex'.
